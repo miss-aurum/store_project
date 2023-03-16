@@ -19,8 +19,8 @@ import os, sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-PROJECT_ROOT = os.path.dirname(__file__)
-sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
+# PROJECT_ROOT = os.path.dirname(__file__)
+# sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -35,17 +35,15 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
 
-# REST_FRAMEWORK = {
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-        
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     )
-    
-# }
-AUTH_USER_MODEL = 'user.UserModel'
+    ),
+}
+# Applicatio
 
 
 INSTALLED_APPS = [
@@ -59,15 +57,15 @@ INSTALLED_APPS = [
 
 
     # packahes :
-    # 'rest_framework',
-    # 'drf_yasg',
-    # 'rest_framework_simplejwt',
-    # 'corsheaders',
+    'rest_framework',
+    'drf_yasg',
+    'rest_framework_simplejwt',
+    'corsheaders',
 
-    # # apps :
-    # 'product',
-    # 'product_order',
-    # 'user',
+    # apps :
+    'apps.product',
+    'apps.product_order',
+    'apps.user',
 
 ]
 
@@ -153,3 +151,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'user.UserModel'
+
+
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS': {},
+}

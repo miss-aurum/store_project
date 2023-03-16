@@ -40,7 +40,7 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
-class UserModel(AbstractUser):
+class UserModel (AbstractUser):
 
     id = models.UUIDField(
         primary_key=True,
